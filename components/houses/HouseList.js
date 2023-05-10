@@ -13,6 +13,8 @@ function HouseList(props) {
           image={house.image}
           title={house.title}
           location={house.location}
+          rentalAvailability={house.rentalAvailability}
+          price={house.price}
         />
       ))}
     </Row>

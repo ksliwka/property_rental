@@ -56,15 +56,34 @@ const DUMMY_HOUSES = [
   },
 ];
 
-function HomePage() {
+function HomePage(props) {
   return (
       
         <Container>
-          <HouseList houses={DUMMY_HOUSES} />
+          <HouseList houses={props.houses} />
         </Container>
 
     
   );
+}
+
+// export async function getServerSideProps(context) {
+//   const req = context.req
+//   const res = context.res
+//   return{
+//     props: {
+//       meetups: DUMMY_MEETUPS
+//     }
+//   }
+// }
+
+export async function getStaticProps() {
+  return{
+    props: {
+      houses: DUMMY_HOUSES
+    },
+    revalidate: 10
+  }
 }
 
 export default HomePage;

@@ -7,19 +7,13 @@ import Container from "react-bootstrap/Container";
 function MainNavigation() {
   return (
     <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand>
+      <Container className={classes.navbar_container}>
           <Link href="/">Housy</Link>
-        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link>
-              <Link href="/">All Properties</Link>
-            </Nav.Link>
-            <Nav.Link>
+            <Link href="/" className="me-4">All Properties</Link>
             <Link href="/new-house">Add New Property</Link>
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
