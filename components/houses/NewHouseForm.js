@@ -29,7 +29,7 @@ function NewHouseForm(props) {
       description: enteredDescription,
     };
 
-    props.onAddMeetup(houseData);
+    props.onAddProperty(houseData);
   }
 
   return (

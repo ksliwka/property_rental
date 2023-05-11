@@ -1,49 +1,61 @@
 import HouseDetail from "../../components/houses/HouseDetail";
+import { MongoClient, ObjectId } from "mongodb";
 
-function HouseDetails() {
+function HouseDetails(props) {
   return (
     <HouseDetail
-      image="https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-      location="Paris"
-      title="apartment"
-      rentalAvailability="March"
-      description="bla"
+      image={props.houseData.image}
+      location={props.houseData.location}
+      title={props.houseData.title}
+      price={props.houseData.price}
+      rentalAvailability={props.houseData.rentalAvailability}
+      description={props.houseData.description}
     />
   );
 }
 
 export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    "mongodb+srv://kateplum99:m6YfDUqDAlEbwSU3@cluster0.yh8wym1.mongodb.net/?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const housesCollection = db.collection("houses");
+  const houses = await housesCollection.find({}, { _id: 1 }).toArray();
+
+  client.close();
+
   return {
     fallback: false,
-    paths: [
-      {
-        params: {
-          houseId: "m1",
-        },
-      },
-      {
-        params: {
-          houseId: "m2",
-        },
-      },
-    ],
+    paths: houses.map((house) => ({
+      params: { houseId: house._id.toString() },
+    })),
   };
 }
 
-export function getStaticProps(context) {
-  const meetupId = context.params.meetupId;
-  console.log(meetupId);
+export async function getStaticProps(context) {
+  const houseId = context.params.houseId;
+
+  const client = await MongoClient.connect(
+    "mongodb+srv://kateplum99:m6YfDUqDAlEbwSU3@cluster0.yh8wym1.mongodb.net/?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const housesCollection = db.collection("houses");
+  const selectedHouse = await housesCollection.findOne({
+    _id: new ObjectId(houseId),
+  });
+
+  client.close();
 
   return {
     props: {
       houseData: {
-        image:
-          "https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
-        id: meetupId,
-        location: "Paris",
-        title: "apartment",
-        rentalAvailability: "March",
-        description: "bla",
+        id: selectedHouse._id.toString(),
+        title: selectedHouse.title,
+        image: selectedHouse.image,
+        location: selectedHouse.location,
+        price: selectedHouse.price,
+        rentalAvailability: selectedHouse.rentalAvailability,
+        description: selectedHouse.description,
       },
     },
   };
