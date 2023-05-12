@@ -1,5 +1,7 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import { Head } from "next/document";
 import NewHouseForm from "../../components/houses/NewHouseForm";
+import { Fragment } from "react";
 
 function NewHousePage() {
   const router = useRouter();
@@ -18,9 +20,16 @@ function NewHousePage() {
     router.push("/");
   }
   return (
-    <>
+    <Fragment>
+      <Head>
+        <title>Add a new house</title>
+        <meta
+          name="description"
+          content="Share your house and generate extra income while creating a new place for travelers or locals to stay."
+        />
+      </Head>
       <NewHouseForm onAddProperty={addPropertyHandler} />
-    </>
+    </Fragment>
   );
 }
 

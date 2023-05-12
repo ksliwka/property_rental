@@ -1,16 +1,24 @@
 import HouseDetail from "../../components/houses/HouseDetail";
 import { MongoClient, ObjectId } from "mongodb";
+import { Head } from "next/document";
+import { Fragment } from "react";
 
 function HouseDetails(props) {
   return (
-    <HouseDetail
-      image={props.houseData.image}
-      location={props.houseData.location}
-      title={props.houseData.title}
-      price={props.houseData.price}
-      rentalAvailability={props.houseData.rentalAvailability}
-      description={props.houseData.description}
-    />
+    <Fragment>
+      <Head>
+        <title>{props.houseData.title}</title>
+        <meta name="description" content={props.houseData.description} />
+      </Head>
+      <HouseDetail
+        image={props.houseData.image}
+        location={props.houseData.location}
+        title={props.houseData.title}
+        price={props.houseData.price}
+        rentalAvailability={props.houseData.rentalAvailability}
+        description={props.houseData.description}
+      />
+    </Fragment>
   );
 }
 

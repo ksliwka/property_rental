@@ -1,6 +1,8 @@
 import HouseList from "../components/houses/HouseList";
 import { Container } from "react-bootstrap";
 import { MongoClient } from "mongodb";
+import { Fragment } from "react";
+import Head from "next/head";
 
 // const DUMMY_HOUSES = [
 //   {
@@ -57,9 +59,15 @@ import { MongoClient } from "mongodb";
 
 function HomePage(props) {
   return (
-    <Container>
-      <HouseList houses={props.houses} />
-    </Container>
+    <Fragment>
+      <Head>
+        <title>Housy</title>
+        <meta name="description" content="" />
+      </Head>
+      <Container>
+        <HouseList houses={props.houses} />
+      </Container>
+    </Fragment>
   );
 }
 
