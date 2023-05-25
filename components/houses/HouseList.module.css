@@ -4,7 +4,16 @@
     padding: 0;
   } */
 
-  .list {
+  /* .list {
     display: flex;
     flex-wrap: wrap;
+  } */
+
+  .house_list{
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sticky {
+    position: fixed;
   }

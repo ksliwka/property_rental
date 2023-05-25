@@ -39,6 +39,17 @@
   }
    */
 
-   .navbar_container{
-    padding: 1rem 1rem;
-   }
+.navbar_container {
+  padding: 1rem 1rem;
+}
+
+.title {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}

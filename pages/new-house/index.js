@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Head } from "next/document";
+import  Head  from "next/head";
 import NewHouseForm from "../../components/houses/NewHouseForm";
 import { Fragment } from "react";
 

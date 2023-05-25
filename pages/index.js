@@ -71,19 +71,9 @@ function HomePage(props) {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const req = context.req
-//   const res = context.res
-//   return{
-//     props: {
-//       meetups: DUMMY_MEETUPS
-//     }
-//   }
-// }
-
 export async function getStaticProps() {
   const client = await MongoClient.connect(
-    "mongodb+srv://kateplum99:m6YfDUqDAlEbwSU3@cluster0.yh8wym1.mongodb.net/?retryWrites=true&w=majority"
+    process.env.MONGODB_CLIENT
   );
   const db = client.db();
   const housesCollection = db.collection("houses");
@@ -97,6 +87,8 @@ export async function getStaticProps() {
         title: house.title,
         image: house.image,
         location: house.location,
+        description: house.description,
+        price: house.price,
         id: house._id.toString(),
       })),
     },

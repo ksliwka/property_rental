@@ -45,7 +45,20 @@
     background-color: #ffe2ed;
   } */
 
+.card {
+  margin-bottom: 20px;
+}
 
-  .card {
-    margin-bottom: 20px;
-  }
+.btn_grey {
+  color: black;
+  background-color: transparent;
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+}
+.btn_grey:hover {
+  color: black;
+  background-color: rgb(205, 205, 205);
+  border: 1px solid rgb(205, 205, 205);
+}

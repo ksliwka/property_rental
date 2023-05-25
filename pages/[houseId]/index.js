@@ -1,6 +1,6 @@
 import HouseDetail from "../../components/houses/HouseDetail";
 import { MongoClient, ObjectId } from "mongodb";
-import { Head } from "next/document";
+import Head  from "next/head";
 import { Fragment } from "react";
 
 function HouseDetails(props) {
@@ -24,7 +24,7 @@ function HouseDetails(props) {
 
 export async function getStaticPaths() {
   const client = await MongoClient.connect(
-    "mongodb+srv://kateplum99:m6YfDUqDAlEbwSU3@cluster0.yh8wym1.mongodb.net/?retryWrites=true&w=majority"
+    process.env.MONGODB_CLIENT
   );
   const db = client.db();
   const housesCollection = db.collection("houses");
@@ -44,7 +44,7 @@ export async function getStaticProps(context) {
   const houseId = context.params.houseId;
 
   const client = await MongoClient.connect(
-    "mongodb+srv://kateplum99:m6YfDUqDAlEbwSU3@cluster0.yh8wym1.mongodb.net/?retryWrites=true&w=majority"
+    process.env.MONGODB_CLIENT
   );
   const db = client.db();
   const housesCollection = db.collection("houses");
