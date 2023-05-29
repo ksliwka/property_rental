@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { MongoClient } from "mongodb";
 import { Fragment } from "react";
 import Head from "next/head";
+import Slogan from "../components/layout/Slogan";
 
 // const DUMMY_HOUSES = [
 //   {
@@ -65,6 +66,7 @@ function HomePage(props) {
         <meta name="description" content="" />
       </Head>
       <Container>
+        <Slogan />
         <HouseList houses={props.houses} />
       </Container>
     </Fragment>
@@ -72,9 +74,7 @@ function HomePage(props) {
 }
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect(
-    process.env.MONGODB_CLIENT
-  );
+  const client = await MongoClient.connect(process.env.MONGODB_CLIENT);
   const db = client.db();
   const housesCollection = db.collection("houses");
   const houses = await housesCollection.find().toArray();
