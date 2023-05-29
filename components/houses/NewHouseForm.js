@@ -89,10 +89,12 @@ function NewHouseForm(props) {
           {formatDate(dateRange[0])}
         </p>
       )}
-
-      <div className={classes.control}>
-        <label htmlFor="price">Price</label>
-        <input type="text" required id="price" ref={priceRef} />
+      <label htmlFor="price">Price</label>
+      <div className={`input-group ${classes.control}`}>
+        <div className="input-group-prepend">
+          <span className="input-group-text">$</span>
+        </div>
+        <input type="text" required className="form-control" id="price" ref={priceRef} />
       </div>
       <div className={classes.control}>
         <label htmlFor="description">Description</label>
