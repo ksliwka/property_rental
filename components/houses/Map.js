@@ -1,15 +1,20 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
 import { useRef, useEffect } from "react";
+import getConfig from "next/config";
 
-mapboxgl.accessToken =
-process.env.MAPBOX_ACCESS_TOKEN
+const { publicRuntimeConfig } = getConfig();
+const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
+
 
 function Map({ houses }) {
+ 
+
   const mapContainer = useRef(null);
   const map = useRef(null);
 
   useEffect(() => {
+    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
     if (!map.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -23,13 +28,8 @@ function Map({ houses }) {
     }
 
     houses.forEach((house) => {
-      const markerElement = document.createElement("div");
-      markerElement.style.width = "30px";
-      markerElement.style.height = "30px";
-      markerElement.style.borderRadius = "50%";
-      markerElement.style.backgroundColor = "yellow";
 
-      new mapboxgl.Marker({ element: markerElement })
+      new mapboxgl.Marker({ color: "rgb(255, 252, 59)" })
         .setLngLat([
           house.coordinates.latitude,
           house.coordinates.longitude,
