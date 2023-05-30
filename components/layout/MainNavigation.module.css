@@ -17,6 +17,7 @@
 .location {
   text-decoration: none;
   color: black;
+  cursor: pointer;
   padding: 0.5rem 1.2rem;
   background-color: rgb(255, 252, 59);
   border: 1px solid rgb(255, 252, 59);
