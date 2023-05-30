@@ -14,7 +14,7 @@ function HouseItem(props) {
     <Col xs={12} sm={6} md={4} lg={3} className={classes.card}>
       {/* <Card key={props.id}> */}
       <Card className="h-100" key={props.id}>
-        <Card.Img variant="top" src={props.image} alt={props.title} />
+        <Card.Img variant="top" src={props.image} alt={props.title} className={classes.cardImage}/>
         <Card.Body className="d-flex flex-column">
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.location}</Card.Text>

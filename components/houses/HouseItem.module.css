@@ -2,6 +2,11 @@
   margin-bottom: 20px;
 }
 
+.cardImage {
+  height: 300px;
+  object-fit: cover;
+}
+
 .btn_grey {
   color: black;
   background-color: transparent;
