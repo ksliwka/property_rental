@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
 import { useRef, useEffect } from "react";
@@ -8,6 +10,7 @@ const { publicRuntimeConfig } = getConfig();
 const { MAPBOX_ACCESS_TOKEN } = publicRuntimeConfig;
 
 function Map({ houses }) {
+  const router = useRouter();
   const mapContainer = useRef(null);
   const map = useRef(null);
 
@@ -26,11 +29,15 @@ function Map({ houses }) {
     }
 
     houses.forEach((house) => {
+      function showDetailsHandler() {
+        router.push("/" + house.id);
+      }
+
       const popupContent = document.createElement("div");
       const image = document.createElement("img");
       image.src = house.image;
       image.alt = house.title;
-      image.classList.add(classes.popupImage); // Apply CSS class for styling
+      image.classList.add(classes.popupImage);
       popupContent.appendChild(image);
 
       const title = document.createElement("h3");
@@ -38,15 +45,23 @@ function Map({ houses }) {
       title.classList.add(classes.popupTitle);
       popupContent.appendChild(title);
 
-      // const location = document.createElement("p");
-      // location.textContent = `Location: ${house.location}`;
-      // popupContent.appendChild(location);
+      const location = document.createElement("p");
+      location.textContent = `Location: ${house.location}`;
+      location.classList.add('text-muted')
+      popupContent.appendChild(location);
 
       const price = document.createElement("p");
       price.textContent = `Price: ${house.price}`;
+      price.classList.add('text-muted')
       popupContent.appendChild(price);
 
-      new mapboxgl.Marker({ color: "rgb(255, 252, 59)" })
+      const button = document.createElement("button");
+      button.textContent = "Show Details";
+      button.classList.add("btn", classes.popupButton);
+      button.addEventListener("click", () => showDetailsHandler(house.id));
+      popupContent.appendChild(button);
+
+      new mapboxgl.Marker({ color: "black" })
         .setLngLat([house.coordinates.latitude, house.coordinates.longitude])
         .setPopup(new mapboxgl.Popup().setDOMContent(popupContent))
         .addTo(map.current);
