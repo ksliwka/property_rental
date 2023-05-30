@@ -27,7 +27,7 @@ function MainNavigation() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Navbar className="d-flex justify-content-center">
+      <Navbar className={`d-flex justify-content-center ${classes.location_navbar}`}>
         <Link href="/locations" className={classes.link}>
           <Button className={classes.location}>
             {" "}
