@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 import { Fragment } from "react";
 import Head from "next/head";
 import Slogan from "../components/layout/Slogan";
+import FilterInput from "../components/filter/FilterInput";
 
 // const DUMMY_HOUSES = [
 //   {
@@ -67,6 +68,7 @@ function HomePage(props) {
       </Head>
       <Container>
         <Slogan />
+        <FilterInput />
         <HouseList houses={props.houses} />
       </Container>
     </Fragment>
