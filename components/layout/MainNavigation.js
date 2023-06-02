@@ -6,6 +6,9 @@ import Container from "react-bootstrap/Container";
 import { GoLocation } from "react-icons/go";
 import { Button } from "react-bootstrap";
 
+// import WhishList from "./WhishlistButton";
+import Example from "./Modal";
+
 function MainNavigation() {
   return (
     <>
@@ -23,11 +26,15 @@ function MainNavigation() {
               <Link href="/new-house" className={classes.link}>
                 Add New Property
               </Link>
+              {/* <WhishList /> */}
+              <Example />
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Navbar className={`d-flex justify-content-center ${classes.location_navbar}`}>
+      <Navbar
+        className={`d-flex justify-content-center ${classes.location_navbar}`}
+      >
         <Link href="/locations" className={classes.link}>
           <Button className={classes.location}>
             {" "}

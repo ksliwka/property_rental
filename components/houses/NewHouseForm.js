@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 
 import classes from "./NewHouseForm.module.css";
 
@@ -11,6 +11,7 @@ function NewHouseForm(props) {
   const locationInputRef = useRef();
   const descriptionInputRef = useRef();
   const priceRef = useRef();
+  const noPeopleRef = useRef();
 
   const [dateRange, setDateRange] = useState([]);
 
@@ -22,6 +23,7 @@ function NewHouseForm(props) {
     const enteredLocation = locationInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
     const enteredPrice = priceRef.current.value;
+    const enteredNoPeople = noPeopleRef.current.value;
 
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
@@ -35,6 +37,7 @@ function NewHouseForm(props) {
         end: formattedEndDate,
       },
       price: enteredPrice,
+      noPeople: enteredNoPeople,
       description: enteredDescription,
     };
 
@@ -57,73 +60,118 @@ function NewHouseForm(props) {
   return (
     <Container>
       <Row>
-        <Col md={6}>
-          <form className={classes.form} onSubmit={submitHandler}>
-            <div className={classes.control}>
-              <label htmlFor="title">Title</label>
-              <input type="text" required id="title" ref={titleInputRef} />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor="image">Image</label>
-              <input type="url" required id="image" ref={imageInputRef} />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
+        <Col md={5}></Col>
+        <Col md={7}>
+          <Form className={classes.form} onSubmit={submitHandler}>
+            <Row>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="title">Title</Form.Label>
+                  <Form.Control
+                    type="text"
+                    required
+                    id="title"
+                    ref={titleInputRef}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="location">Location</Form.Label>
+                  <Form.Control
+                    type="text"
+                    required
+                    id="location"
+                    ref={locationInputRef}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="title">No of people</Form.Label>
+                  <Form.Control
+                    type="text"
+                    required
+                    id="title"
+                    ref={noPeopleRef}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="price">Price</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text>$</InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      required
+                      id="price"
+                      ref={priceRef}
+                      pattern="[0-9]*"
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group>
+              <Form.Label htmlFor="image">Image</Form.Label>
+              <Form.Control
+                type="url"
                 required
-                id="location"
-                ref={locationInputRef}
+                id="image"
+                ref={imageInputRef}
               />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor="rentalAvailability">Select Dates</label>
-              <Calendar
-                onChange={handleCalendarChange}
-                value={dateRange}
-                selectRange={true}
-                id="rentalAvailability"
-                aria-label="Rental Availability"
-              />
-            </div>
-            {dateRange.length > 0 ? (
-              <p className="text-center">
-                <span className="bold">Start:</span> {formatDate(dateRange[0])}
-                &nbsp;|&nbsp;
-                <span className="bold">End:</span> {formatDate(dateRange[1])}
-              </p>
-            ) : (
-              <p className="text-center">
-                <span className="bold">Default selected date:</span>{" "}
-                {formatDate(dateRange[0])}
-              </p>
-            )}
-            <label htmlFor="price">Price</label>
-            <div className={`input-group ${classes.control}`}>
-              <div className="input-group-prepend">
-                <span className="input-group-text">$</span>
-              </div>
-              <input
-                type="text"
-                required
-                className="form-control"
-                id="price"
-                ref={priceRef}
-              />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                required
-                rows="5"
-                ref={descriptionInputRef}
-              ></textarea>
-            </div>
+            </Form.Group>
+            <Row>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="rentalAvailability">
+                    Select Dates
+                  </Form.Label>
+                  <Calendar
+                    onChange={handleCalendarChange}
+                    value={dateRange}
+                    selectRange={true}
+                    id="rentalAvailability"
+                    aria-label="Rental Availability"
+                  />
+
+                  {dateRange.length > 0 ? (
+                    <p className="text-center">
+                      <span className="bold">Start:</span>{" "}
+                      {formatDate(dateRange[0])}
+                      &nbsp;|&nbsp;
+                      <span className="bold">End:</span>{" "}
+                      {formatDate(dateRange[1])}
+                    </p>
+                  ) : (
+                    <p className="text-center">
+                      <span className="bold">Default selected date:</span>{" "}
+                      {formatDate(dateRange[0])}
+                    </p>
+                  )}
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label htmlFor="description">Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    id="description"
+                    required
+                    rows="5"
+                    ref={descriptionInputRef}
+                  ></Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+
             <div className={classes.formButton}>
-            <Button >Add</Button>
+              <Button>Add</Button>
             </div>
-          </form>
+          </Form>
         </Col>
       </Row>
     </Container>
