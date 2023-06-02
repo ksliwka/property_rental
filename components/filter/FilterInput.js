@@ -1,50 +1,95 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Calendar from "react-calendar";
 
-function FilterInput() {
+function FilterInput({ onSearch }) {
+  const [dateRange, setDateRange] = useState([]);
+  const [filters, setFilters] = useState({
+    location: "",
+    numOfPeople: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formattedStartDate = formatDate(dateRange[0]);
+    const formattedEndDate = formatDate(dateRange[1]);
+    onSearch({ ...filters, rentalAvailability: { start: formattedStartDate, end: formattedEndDate } });
+  };
+
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const handleCalendarChange = (value) => {
+    setDateRange(value);
+  };
+
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
         <Col xs="auto">
-          <FloatingLabel
-            controlId="floatingTextarea"
-            label="Location"
-            className="mb-3"
-          >
+          <FloatingLabel controlId="location" label="Location" className="mb-3">
             <Form.Control
               className="mb-2"
-              id="floatingTextarea"
+              id="location"
+              name="location"
+              value={filters.location}
+              onChange={handleInputChange}
               placeholder="Location"
             />
           </FloatingLabel>
         </Col>
         <Col xs="auto">
           <FloatingLabel
-            controlId="floatingTextarea"
+            controlId="numOfPeople"
             label="No of people"
             className="mb-3"
           >
             <Form.Control
               className="mb-2"
-              id="floatingTextarea"
+              id="numOfPeople"
+              name="numOfPeople"
+              value={filters.numOfPeople}
+              onChange={handleInputChange}
               placeholder="No of people"
             />
           </FloatingLabel>
         </Col>
         <Col xs="auto">
-          <FloatingLabel
-            controlId="floatingTextarea"
-            label="Date"
-            className="mb-3"
-          >
-            <Form.Control
+          <FloatingLabel controlId="date" label="Date" className="mb-3">
+            {/* <Form.Control
               className="mb-2"
-              id="floatingTextarea"
+              id="date"
+              name="date"
+              value={filters.date}
+              onChange={handleInputChange}
               placeholder="Date"
+            /> */}
+            <Calendar
+              onChange={handleCalendarChange}
+              value={dateRange}
+              selectRange={true}
+              id="date"
+              aria-label="Rental Availability"
             />
           </FloatingLabel>
         </Col>

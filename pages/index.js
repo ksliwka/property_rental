@@ -1,7 +1,7 @@
 import HouseList from "../components/houses/HouseList";
 import { Container } from "react-bootstrap";
 import { MongoClient } from "mongodb";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Head from "next/head";
 import Slogan from "../components/layout/Slogan";
 import FilterInput from "../components/filter/FilterInput";
@@ -60,6 +60,45 @@ import FilterInput from "../components/filter/FilterInput";
 // ];
 
 function HomePage(props) {
+  const [filteredHouses, setFilteredHouses] = useState(props.houses);
+
+  const handleSearch = (filters) => {
+    const filteredData = props.houses.filter((house) => {
+      if (filters.location.toLowerCase() === house.location.toLowerCase() ) {
+        return true;
+      }
+      return false;
+
+      // Perform filtering logic based on filter values
+      // Example:
+      // if (filters.location && house.location !== filters.location) {
+      //   return false;
+      // }
+      // if (filters.numOfPeople && house.numOfPeople !== filters.numOfPeople) {
+      //   return false;
+      // }
+      // if (filters.date && house.date !== filters.date) {
+      //   return false;
+      // }
+      // return true;
+
+
+      // const isLocationMatch =
+      //   filters.location === "" ||
+      //   house.location.toLowerCase();
+      // const isNumOfPeopleMatch =
+      //   filters.numOfPeople === "" || house.numOfPeople >= parseInt(numOfPeople, 10);
+      // const isDateMatch =
+      //   filters.rentalAvailability === 0 ||
+      //   (house.rentalAvailability.start <= filters.formattedStartDate &&
+      //     house.rentalAvailability.end >= filters.formattedEndDate);
+
+      // // Return true if at least one of the inputs is true
+      // return isLocationMatch || isNumOfPeopleMatch || isDateMatch;
+    });
+
+    setFilteredHouses(filteredData);
+  };
   return (
     <Fragment>
       <Head>
@@ -68,8 +107,8 @@ function HomePage(props) {
       </Head>
       <Container>
         <Slogan />
-        <FilterInput />
-        <HouseList houses={props.houses} />
+        <FilterInput onSearch={handleSearch} />
+        <HouseList houses={filteredHouses} />
       </Container>
     </Fragment>
   );
@@ -91,6 +130,7 @@ export async function getStaticProps() {
         location: house.location,
         description: house.description,
         price: house.price,
+        rentalAvailability: house.rentalAvailability,
         id: house._id.toString(),
       })),
     },
