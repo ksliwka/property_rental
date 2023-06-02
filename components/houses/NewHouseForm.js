@@ -48,7 +48,7 @@ function NewHouseForm(props) {
     const formattedDate = new Date(date);
     return formattedDate.toLocaleDateString(undefined, {
       year: "numeric",
-      month: "long",
+      month: "numeric",
       day: "numeric",
     });
   };
@@ -169,7 +169,7 @@ function NewHouseForm(props) {
             </Row>
 
             <div className={classes.formButton}>
-              <Button>Add</Button>
+              <Button type="submit">Add</Button>
             </div>
           </Form>
         </Col>

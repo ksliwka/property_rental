@@ -2,7 +2,6 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Calendar from "react-calendar";
@@ -26,7 +25,10 @@ function FilterInput({ onSearch }) {
     event.preventDefault();
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
-    onSearch({ ...filters, rentalAvailability: { start: formattedStartDate, end: formattedEndDate } });
+    onSearch({
+      ...filters,
+      rentalAvailability: { start: formattedStartDate, end: formattedEndDate },
+    });
   };
 
   const formatDate = (date) => {
@@ -42,12 +44,11 @@ function FilterInput({ onSearch }) {
     setDateRange(value);
   };
 
-
   return (
     <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
         <Col xs="auto">
-          <FloatingLabel controlId="location" label="Location" className="mb-3">
+          <FloatingLabel label="Location" className="mb-3">
             <Form.Control
               className="mb-2"
               id="location"
@@ -59,11 +60,7 @@ function FilterInput({ onSearch }) {
           </FloatingLabel>
         </Col>
         <Col xs="auto">
-          <FloatingLabel
-            controlId="numOfPeople"
-            label="No of people"
-            className="mb-3"
-          >
+          <FloatingLabel label="No of people" className="mb-3">
             <Form.Control
               className="mb-2"
               id="numOfPeople"
@@ -75,15 +72,7 @@ function FilterInput({ onSearch }) {
           </FloatingLabel>
         </Col>
         <Col xs="auto">
-          <FloatingLabel controlId="date" label="Date" className="mb-3">
-            {/* <Form.Control
-              className="mb-2"
-              id="date"
-              name="date"
-              value={filters.date}
-              onChange={handleInputChange}
-              placeholder="Date"
-            /> */}
+          <FloatingLabel label="Date" className="mb-3">
             <Calendar
               onChange={handleCalendarChange}
               value={dateRange}
