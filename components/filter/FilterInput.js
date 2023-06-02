@@ -3,40 +3,50 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 function FilterInput() {
   return (
     <Form>
       <Row className="align-items-center justify-content-center">
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput" visuallyHidden>
-            Location
-          </Form.Label>
-          <Form.Control
-            className="mb-2"
-            id="inlineFormInput"
-            placeholder="Location"
-          />
+          <FloatingLabel
+            controlId="floatingTextarea"
+            label="Location"
+            className="mb-3"
+          >
+            <Form.Control
+              className="mb-2"
+              id="floatingTextarea"
+              placeholder="Location"
+            />
+          </FloatingLabel>
         </Col>
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput" visuallyHidden>
-            No of people
-          </Form.Label>
-          <Form.Control
-            className="mb-2"
-            id="inlineFormInput"
-            placeholder="No of people"
-          />
+          <FloatingLabel
+            controlId="floatingTextarea"
+            label="No of people"
+            className="mb-3"
+          >
+            <Form.Control
+              className="mb-2"
+              id="floatingTextarea"
+              placeholder="No of people"
+            />
+          </FloatingLabel>
         </Col>
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput" visuallyHidden>
-            Date
-          </Form.Label>
-          <Form.Control
-            className="mb-2"
-            id="inlineFormInput"
-            placeholder="Date"
-          />
+          <FloatingLabel
+            controlId="floatingTextarea"
+            label="Date"
+            className="mb-3"
+          >
+            <Form.Control
+              className="mb-2"
+              id="floatingTextarea"
+              placeholder="Date"
+            />
+          </FloatingLabel>
         </Col>
         <Col xs="auto">
           <Button type="submit" className="mb-2">
