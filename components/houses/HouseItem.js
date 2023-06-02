@@ -2,8 +2,9 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import classes from "./HouseItem.module.css";
 import Card from "react-bootstrap/Card";
-import { Col, Button } from "react-bootstrap";
+import { Col, Button, Row } from "react-bootstrap";
 
+import Heart from "../assets/Heart";
 import CartContext from "../store/cart-context";
 
 function HouseItem(props) {
@@ -31,6 +32,9 @@ function HouseItem(props) {
     <Col xs={12} sm={6} md={4} lg={3} className={classes.card}>
       <Card className="h-100" key={props.id}>
         <form onSubmit={addItemToCartHandler}>
+          <Button type="submit" className={classes.heart_btn}>
+            <Heart />
+          </Button>
           <Card.Img
             variant="top"
             src={props.image}
@@ -41,13 +45,13 @@ function HouseItem(props) {
             <Card.Title>{props.title}</Card.Title>
             <Card.Text>{price}</Card.Text>
             <Card.Text>{props.location}</Card.Text>
+
             <Button
               className={`mt-auto ${classes.btn_grey}`}
               onClick={showDetailsHandler}
             >
               SHOW DETAILS
             </Button>
-            <Button type="submit">ADD</Button>
           </Card.Body>
         </form>
       </Card>
@@ -56,6 +60,5 @@ function HouseItem(props) {
 }
 
 export default HouseItem;
-
 
 //przy button mogę zmienić na Link od next.js to jest lepesze rozwiązanie

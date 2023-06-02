@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { AiOutlineHeart } from "react-icons/ai";
+import classes from "./CartModal.module.css";
 
 import CartContext from "../store/cart-context";
+import Heart from "../assets/Heart";
 
-function Example() {
+function CartModal() {
   const fullscreenOption = true; // Set the desired fullscreen option here
   const [fullscreen, setFullscreen] = useState(fullscreenOption);
   const [show, setShow] = useState(false);
@@ -29,9 +29,9 @@ function Example() {
 
   return (
     <>
-      <Button onClick={handleShow} className="me-2 mb-2">
-        <AiOutlineHeart />
-      </Button>
+      <a type="btn" onClick={handleShow} className={`me-2 mb-2 `}>
+        <Heart />
+      </a>
       <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Modal</Modal.Title>
@@ -45,4 +45,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default CartModal;

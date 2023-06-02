@@ -6,8 +6,7 @@ import Container from "react-bootstrap/Container";
 import { GoLocation } from "react-icons/go";
 import { Button } from "react-bootstrap";
 
-// import WhishList from "./WhishlistButton";
-import Example from "./Modal";
+import CartModal from "./CartModal";
 
 function MainNavigation() {
   return (
@@ -23,11 +22,10 @@ function MainNavigation() {
               <Link href="/" className={`me-4 ${classes.link}`}>
                 All Properties
               </Link>
-              <Link href="/new-house" className={classes.link}>
+              <Link href="/new-house" className={`me-4 ${classes.link}`}>
                 Add New Property
               </Link>
-              {/* <WhishList /> */}
-              <Example />
+              <CartModal/>
             </Nav>
           </Navbar.Collapse>
         </Container>
