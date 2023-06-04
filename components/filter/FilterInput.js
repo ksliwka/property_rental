@@ -9,7 +9,9 @@ import Calendar from "react-calendar";
 
 function FilterInput({ onSearch }) {
   const [dateRange, setDateRange] = useState([]);
-  const [formattedDateRange, setFormattedDateRange] = useState("Start day - End day");
+  const [formattedDateRange, setFormattedDateRange] = useState(
+    "Start day - End day"
+  );
   const [filters, setFilters] = useState({
     location: "",
     numOfPeople: "",
@@ -19,9 +21,7 @@ function FilterInput({ onSearch }) {
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
     if (formattedStartDate && formattedEndDate) {
-      setFormattedDateRange(
-        `${formattedStartDate} - ${formattedEndDate}`
-      );
+      setFormattedDateRange(`${formattedStartDate} - ${formattedEndDate}`);
     } else {
       setFormattedDateRange("Start day - End day");
     }
@@ -49,7 +49,7 @@ function FilterInput({ onSearch }) {
     if (date instanceof Date && !isNaN(date)) {
       return date.toLocaleDateString(undefined, {
         year: "numeric",
-        month: "long",
+        month: "numeric",
         day: "numeric",
       });
     }
@@ -81,6 +81,7 @@ function FilterInput({ onSearch }) {
               className="mb-2"
               id="numOfPeople"
               name="numOfPeople"
+              type="number" // Add type="number" to input field
               value={filters.numOfPeople}
               onChange={handleInputChange}
               placeholder="No of people"

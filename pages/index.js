@@ -166,7 +166,8 @@ function HomePage(props) {
 
   const handleSearch = (filters) => {
     const filteredData = props.houses.filter((house) => {
-      if (filters.location.toLowerCase() === house.location.toLowerCase() ) {
+      if (filters.location.toLowerCase() === house.location.toLowerCase() || parseInt(filters.numOfPeople) === parseInt(house.noPeople)) {
+
         console.log(filters.rentalAvailability)
         return true
       }
@@ -234,6 +235,7 @@ export async function getStaticProps() {
         description: house.description,
         price: house.price,
         rentalAvailability: house.rentalAvailability,
+        noPeople: house.noPeople,
         id: house._id.toString(),
       })),
     },
