@@ -6,102 +6,33 @@ import Head from "next/head";
 import Slogan from "../components/layout/Slogan";
 import FilterInput from "../components/filter/FilterInput";
 
-// const DUMMY_HOUSES = [
-//   {
-//     id: 1,
-//     title: "Modern Studio in the Heart of the City",
-//     image: "https://source.unsplash.com/random/800x600/?apartment",
-//     location: "Downtown",
-//     rentalAvailability: "May 15th - June 15th",
-//     price: "$1200/month",
-//     description:
-//       "This stylish studio apartment is located in the heart of the city, with easy access to all the best shops, restaurants, and attractions. It features a modern design and high-end amenities, including a fully-equipped kitchen, comfortable bed, and spacious living area.",
-//   },
-//   {
-//     id: 2,
-//     title: "Charming 1-Bedroom Apartment in Historic Building",
-//     image: "https://source.unsplash.com/random/800x600/?flat",
-//     location: "Old Town",
-//     rentalAvailability: "June 1st - August 31st",
-//     price: "$1500/month",
-//     description:
-//       "This cozy apartment is located in a beautiful historic building in the heart of Old Town. It features a charming vintage design with hardwood floors, exposed brick walls, and high ceilings. The apartment is fully furnished and equipped with all the amenities you need for a comfortable stay.",
-//   },
-//   {
-//     id: 3,
-//     title: "Spacious 2-Bedroom Apartment with Stunning Views",
-//     image: "https://source.unsplash.com/random/800x600/?apartment-building",
-//     location: "Midtown",
-//     rentalAvailability: "July 1st - September 30th",
-//     price: "$2000/month",
-//     description:
-//       "This beautiful apartment features two spacious bedrooms and breathtaking views of the city skyline. It is located in a modern high-rise building in the trendy Midtown neighborhood, with easy access to all the best shopping, dining, and entertainment options.",
-//   },
-//   {
-//     id: 4,
-//     title: "Luxurious Penthouse with Private Rooftop Terrace",
-//     image: "https://source.unsplash.com/random/800x600/?penthouse",
-//     location: "Upper East Side",
-//     rentalAvailability: "August 1st - December 31st",
-//     price: "$5000/month",
-//     description:
-//       "This stunning penthouse apartment is the epitome of luxury living in New York City. It features a private rooftop terrace with panoramic views of the city, as well as high-end amenities like a gourmet kitchen, spa-like bathrooms, and a state-of-the-art home theater system.",
-//   },
-//   {
-//     id: 5,
-//     title: "Cozy Studio in a Quiet Residential Neighborhood",
-//     image: "https://source.unsplash.com/random/800x600/?studio",
-//     location: "Brooklyn",
-//     rentalAvailability: "June 15th - October 15th",
-//     price: "$900/month",
-//     description:
-//       "This cozy studio apartment is located in a quiet residential neighborhood in Brooklyn. It features a simple but functional design with all the basic amenities you need for a comfortable stay. The apartment is within walking distance of several parks, cafes, and grocery stores.",
-//   },
-// ];
-
 function HomePage(props) {
   const [filteredHouses, setFilteredHouses] = useState(props.houses);
 
-  const handleSearch = (filters) => {
+  const handleSearch = (filters, dateRange) => {
+    console.log("dateRange:", dateRange); // Log the value of dateRange
     const filteredData = props.houses.filter((house) => {
-      const isLocationMatch = filters.location === "" || filters.location.toLowerCase() === house.location.toLowerCase();
-      const isNumOfPeopleMatch = filters.numOfPeople === "" || parseInt(filters.numOfPeople) === house.noPeople;
-    
-      if (isLocationMatch && isNumOfPeopleMatch) {
+      const isLocationMatch =
+        filters.location === "" ||
+        house.location.toLowerCase().includes(filters.location.toLowerCase());
+      const isNumOfPeopleMatch =
+        filters.numOfPeople === "" ||
+        house.noPeople >= parseInt(filters.numOfPeople);
+      const isDateMatch =
+        dateRange.length === 0 ||
+        (house.rentalAvailability.start <= dateRange[0] &&
+          house.rentalAvailability.end >= dateRange[1]);
+
+      if (isLocationMatch && isNumOfPeopleMatch && isDateMatch) {
         return true;
+      } else {
+        return false;
       }
-      return false;
-
-      // Perform filtering logic based on filter values
-      // Example:
-      // if (filters.location && house.location !== filters.location) {
-      //   return false;
-      // }
-      // if (filters.numOfPeople && house.numOfPeople !== filters.numOfPeople) {
-      //   return false;
-      // }
-      // if (filters.date && house.date !== filters.date) {
-      //   return false;
-      // }
-      // return true;
-
-
-      // const isLocationMatch =
-      //   filters.location === "" ||
-      //   house.location.toLowerCase();
-      // const isNumOfPeopleMatch =
-      //   filters.numOfPeople === "" || house.numOfPeople >= parseInt(numOfPeople, 10);
-      // const isDateMatch =
-      //   filters.rentalAvailability === 0 ||
-      //   (house.rentalAvailability.start <= filters.formattedStartDate &&
-      //     house.rentalAvailability.end >= filters.formattedEndDate);
-
-      // // Return true if at least one of the inputs is true
-      // return isLocationMatch || isNumOfPeopleMatch || isDateMatch;
     });
 
     setFilteredHouses(filteredData);
   };
+
   return (
     <Fragment>
       <Head>
@@ -143,4 +74,3 @@ export async function getStaticProps() {
 }
 
 export default HomePage;
-

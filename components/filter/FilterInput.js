@@ -39,12 +39,9 @@ function FilterInput({ onSearch }) {
     event.preventDefault();
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
-    onSearch({
-      ...filters,
-      rentalAvailability: { start: formattedStartDate, end: formattedEndDate },
-    });
+    console.log(formattedStartDate);
+    onSearch(filters, [formattedStartDate, formattedEndDate]);
   };
-
   const formatDate = (date) => {
     if (date instanceof Date && !isNaN(date)) {
       return date.toLocaleDateString(undefined, {

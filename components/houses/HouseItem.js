@@ -45,6 +45,8 @@ function HouseItem(props) {
             <Card.Title>{props.title}</Card.Title>
             <Card.Text>{price}</Card.Text>
             <Card.Text>{props.location}</Card.Text>
+            <Card.Text>{props.rentalAvailability.start}</Card.Text>
+            <Card.Text>{props.rentalAvailability.end}</Card.Text>
 
             <Button
               className={`mt-auto ${classes.btn_grey}`}
