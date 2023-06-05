@@ -6,15 +6,15 @@ import Head from "next/head";
 import Slogan from "../components/layout/Slogan";
 import FilterInput from "../components/filter/FilterInput";
 
+
 function HomePage(props) {
   const [filteredHouses, setFilteredHouses] = useState(props.houses);
 
   const handleSearch = (filters, dateRange) => {
-    console.log("dateRange:", dateRange); // Log the value of dateRange
     const filteredData = props.houses.filter((house) => {
       const isLocationMatch =
         filters.location === "" ||
-        house.location.toLowerCase().includes(filters.location.toLowerCase());
+        house.location.toLowerCase() === filters.location.toLowerCase();
       const isNumOfPeopleMatch =
         filters.numOfPeople === "" ||
         house.noPeople >= parseInt(filters.numOfPeople);
@@ -22,16 +22,17 @@ function HomePage(props) {
         dateRange.length === 0 ||
         (house.rentalAvailability.start <= dateRange[0] &&
           house.rentalAvailability.end >= dateRange[1]);
-
-      if (isLocationMatch && isNumOfPeopleMatch && isDateMatch) {
+  
+      if (isLocationMatch && isNumOfPeopleMatch || isDateMatch) {
         return true;
       } else {
         return false;
       }
     });
-
+  
     setFilteredHouses(filteredData);
   };
+  
 
   return (
     <Fragment>
@@ -41,7 +42,7 @@ function HomePage(props) {
       </Head>
       <Container>
         <Slogan />
-        <FilterInput onSearch={handleSearch} />
+        <FilterInput onSearch={handleSearch} houses={props.houses}/>
         <HouseList houses={filteredHouses} />
       </Container>
     </Fragment>

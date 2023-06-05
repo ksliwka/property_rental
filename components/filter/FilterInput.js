@@ -6,8 +6,9 @@ import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Dropdown } from "react-bootstrap";
 import Calendar from "react-calendar";
+import Select from "react-select";
 
-function FilterInput({ onSearch }) {
+function FilterInput({ onSearch, houses }) {
   const [dateRange, setDateRange] = useState([]);
   const [formattedDateRange, setFormattedDateRange] = useState(
     "Start day - End day"
@@ -57,20 +58,39 @@ function FilterInput({ onSearch }) {
     setDateRange(value);
   };
 
+  const locationOptions = [
+    { value: "", label: "Select location" },
+    { value: "", label: "All locations" },
+    ...houses.map((house) => ({
+      value: house.location,
+      label: house.location,
+    })),
+  ];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
         <Col xs="auto">
-          <FloatingLabel label="Location" className="mb-3">
-            <Form.Control
-              className="mb-2"
-              id="location"
-              name="location"
-              value={filters.location}
-              onChange={handleInputChange}
-              placeholder="Location"
-            />
-          </FloatingLabel>
+          <Select
+            className="mb-2"
+            id="location"
+            name="location"
+            value={
+              filters.location
+                ? { value: filters.location, label: filters.location }
+                : null
+            }
+            onChange={(selectedOption) =>
+              handleInputChange(
+                "location",
+                selectedOption ? selectedOption.value : ""
+              )
+            }
+            options={locationOptions}
+            placeholder="Select location"
+            isClearable
+            isSearchable
+          />
         </Col>
         <Col xs="auto">
           <FloatingLabel label="No of people" className="mb-3">
