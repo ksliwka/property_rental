@@ -57,6 +57,8 @@ function NewHouseForm(props) {
     setDateRange(value);
   };
 
+  const today = new Date();
+
   return (
     <Container>
       <Row>
@@ -136,6 +138,7 @@ function NewHouseForm(props) {
                     selectRange={true}
                     id="rentalAvailability"
                     aria-label="Rental Availability"
+                    minDate={today}
                   />
 
                   {dateRange.length > 0 ? (

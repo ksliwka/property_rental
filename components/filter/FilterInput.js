@@ -80,6 +80,8 @@ function FilterInput({ onSearch, houses }) {
     })),
   ];
 
+  const today = new Date()
+
   return (
     <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
@@ -136,6 +138,7 @@ function FilterInput({ onSearch, houses }) {
                 selectRange={true}
                 id="date"
                 aria-label="Rental Availability"
+                minDate={today}
               />
             </Dropdown.Menu>
           </Dropdown>
