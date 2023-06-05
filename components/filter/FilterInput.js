@@ -17,6 +17,7 @@ function FilterInput({ onSearch, houses }) {
     location: "",
     numOfPeople: "",
   });
+  const [numOfPeopleError, setNumOfPeopleError] = useState("");
 
   useEffect(() => {
     const formattedStartDate = formatDate(dateRange[0]);
@@ -30,10 +31,22 @@ function FilterInput({ onSearch, houses }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
+
+    // Validate if value is a positive integer within the range 1 to 30
+    const intValue = parseInt(value);
+    const isValid =
+      Number.isInteger(intValue) && intValue > 0 && intValue <= 30;
+
+    // Update the state and error message
+    if (isValid) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [name]: intValue,
+      }));
+      setNumOfPeopleError("");
+    } else {
+      setNumOfPeopleError("Please enter a valid number of people (1-30).");
+    }
   };
 
   const handleSubmit = (event) => {
@@ -98,11 +111,17 @@ function FilterInput({ onSearch, houses }) {
               className="mb-2"
               id="numOfPeople"
               name="numOfPeople"
-              type="number" // Add type="number" to input field
+              type="number"
+              min="1"
+              max="30"
               value={filters.numOfPeople}
               onChange={handleInputChange}
               placeholder="No of people"
+              isInvalid={!!numOfPeopleError}
             />
+            <Form.Control.Feedback type="invalid">
+              {numOfPeopleError}
+            </Form.Control.Feedback>
           </FloatingLabel>
         </Col>
         <Col xs="auto">
