@@ -1,11 +1,11 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
-import classes from "./CartModal.module.css";
-
+import CartItems from "./CartItems";
 import CartContext from "../store/cart-context";
 import Heart from "../assets/Heart";
+import { Container } from "react-bootstrap";
 
-function CartModal() {
+const CartModal = () => {
   const fullscreenOption = true; // Set the desired fullscreen option here
   const [fullscreen, setFullscreen] = useState(fullscreenOption);
   const [show, setShow] = useState(false);
@@ -14,35 +14,32 @@ function CartModal() {
 
   const numberOfCartItems = cartCtx.items.length;
 
-  const cartItems = (
-    <ul>
-      {cartCtx.items.map((item) => {
-        return <li>{item.title}</li>;
-      })}
-    </ul>
-  );
-
   function handleShow() {
-    // setFullscreen(fullscreenOption);
     setShow(true);
   }
+
+  const hideModal = () => {
+    setShow(false);
+  };
 
   return (
     <>
       <a type="btn" onClick={handleShow} className={`me-2 mb-2 `}>
         <Heart />
       </a>
-      <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+      <Modal show={show} fullscreen={fullscreen} onHide={hideModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal</Modal.Title>
+          <Modal.Title>Wishlist</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Number of Cart items: {numberOfCartItems}
-          {cartItems}
-        </Modal.Body>
+        <Container>
+          <Modal.Body>
+            Number of wishlist items: {numberOfCartItems}
+            <CartItems items={cartCtx.items} hideModal={hideModal} />
+          </Modal.Body>
+        </Container>
       </Modal>
     </>
   );
-}
+};
 
 export default CartModal;

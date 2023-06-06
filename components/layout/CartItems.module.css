@@ -1,0 +1,23 @@
+.modalImage {
+  height: 100px;
+  object-fit: cover;
+}
+
+.arrow {
+    height: 2rem;
+    width: 2rem;
+    color: black;
+}
+.arrow:hover {
+    height: 2rem;
+    width: 2rem;
+    color: rgb(255, 252, 59);
+}
+
+
+@media (max-width: 576px) {
+  .modalImage {
+    height: 50px;
+    object-fit: cover;
+  }
+}

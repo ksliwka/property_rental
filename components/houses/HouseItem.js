@@ -21,6 +21,8 @@ function HouseItem(props) {
       id: props.id,
       title: props.title,
       price: props.price,
+      image: props.image,
+      location: props.location,
     });
   };
 
