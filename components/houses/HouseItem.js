@@ -51,7 +51,7 @@ function HouseItem(props) {
             <Card.Text>{props.rentalAvailability.end}</Card.Text>
 
             <Button
-              className={`mt-auto ${classes.btn_grey}`}
+              className={`mt-auto ${classes.button}`}
               onClick={showDetailsHandler}
             >
               SHOW DETAILS

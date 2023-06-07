@@ -7,6 +7,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Dropdown } from "react-bootstrap";
 import Calendar from "react-calendar";
 import Select from "react-select";
+import classes from "./FilterInput.module.css";
 
 function FilterInput({ onSearch, houses }) {
   const [dateRange, setDateRange] = useState([]);
@@ -32,12 +33,10 @@ function FilterInput({ onSearch, houses }) {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    // Validate if value is a positive integer within the range 1 to 30
     const intValue = parseInt(value);
     const isValid =
       Number.isInteger(intValue) && intValue > 0 && intValue <= 30;
 
-    // Update the state and error message
     if (isValid) {
       setFilters((prevFilters) => ({
         ...prevFilters,
@@ -80,14 +79,14 @@ function FilterInput({ onSearch, houses }) {
     })),
   ];
 
-  const today = new Date()
+  const today = new Date();
 
   return (
     <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
         <Col xs="auto">
           <Select
-            className="mb-2"
+            className={`mb-2 ${classes.select}`}
             id="location"
             name="location"
             value={
@@ -110,7 +109,7 @@ function FilterInput({ onSearch, houses }) {
         <Col xs="auto">
           <FloatingLabel label="No of people" className="mb-3">
             <Form.Control
-              className="mb-2"
+              className={`mb-2 ${classes.input}`}
               id="numOfPeople"
               name="numOfPeople"
               type="number"
@@ -128,7 +127,10 @@ function FilterInput({ onSearch, houses }) {
         </Col>
         <Col xs="auto">
           <Dropdown>
-            <Dropdown.Toggle variant="outline-secondary">
+            <Dropdown.Toggle
+              variant="outline-secondary"
+              className={classes.dropdownToggle}
+            >
               {formattedDateRange}
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -144,7 +146,7 @@ function FilterInput({ onSearch, houses }) {
           </Dropdown>
         </Col>
         <Col xs="auto">
-          <Button type="submit" className="mb-2">
+          <Button type="submit" className={classes.button}>
             Search
           </Button>
         </Col>
