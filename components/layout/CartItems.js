@@ -11,14 +11,12 @@ const CartItems = ({ items, hideModal }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const showDetailsHandler = async (itemId) => {
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true); 
 
-    // Perform additional actions specific to the "showDetailsHandler"
-    // For example, navigate to the details page for the selected item
     await router.push("/" + itemId);
 
-    setIsLoading(false); // Set loading state back to false after the redirection is complete
-    hideModal(); // Close the modal
+    setIsLoading(false); 
+    hideModal(); 
   };
 
   return (
