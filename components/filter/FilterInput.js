@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, InputGroup } from "react-bootstrap";
 import Calendar from "react-calendar";
 import Select from "react-select";
 import classes from "./FilterInput.module.css";
@@ -19,6 +19,7 @@ function FilterInput({ onSearch, houses }) {
     numOfPeople: "",
   });
   const [numOfPeopleError, setNumOfPeopleError] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   useEffect(() => {
     const formattedStartDate = formatDate(dateRange[0]);
@@ -33,19 +34,37 @@ function FilterInput({ onSearch, houses }) {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    const intValue = parseInt(value);
-    const isValid =
-      Number.isInteger(intValue) && intValue > 0 && intValue <= 30;
+    if (name === "numOfPeople") {
+      const intValue = parseInt(value);
+      const isValid =
+        Number.isInteger(intValue) && intValue > 0 && intValue <= 30;
 
-    if (isValid) {
+      if (isValid) {
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          [name]: intValue,
+        }));
+        setNumOfPeopleError("");
+      } else {
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          [name]: value,
+        }));
+        setNumOfPeopleError("Please enter a valid number of people (1-30).");
+      }
+    } else if (name === "location") {
       setFilters((prevFilters) => ({
         ...prevFilters,
-        [name]: intValue,
+        [name]: value,
       }));
-      setNumOfPeopleError("");
-    } else {
-      setNumOfPeopleError("Please enter a valid number of people (1-30).");
     }
+  };
+
+  const handleLocationChange = (selectedOption) => {
+    const location = selectedOption ? selectedOption.value : "";
+    setSelectedLocation(location);
+    const event = { target: { name: "location", value: location } };
+    handleInputChange(event);
   };
 
   const handleSubmit = (event) => {
@@ -71,7 +90,6 @@ function FilterInput({ onSearch, houses }) {
   };
 
   const locationOptions = [
-    { value: "", label: "Select location" },
     { value: "", label: "All locations" },
     ...houses.map((house) => ({
       value: house.location,
@@ -84,72 +102,73 @@ function FilterInput({ onSearch, houses }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Row className="align-items-center justify-content-center">
-        <Col xs="auto">
-          <Select
-            className={`mb-2 ${classes.select}`}
-            id="location"
-            name="location"
-            value={
-              filters.location
-                ? { value: filters.location, label: filters.location }
-                : null
-            }
-            onChange={(selectedOption) =>
-              handleInputChange(
-                "location",
-                selectedOption ? selectedOption.value : ""
-              )
-            }
-            options={locationOptions}
-            placeholder="Select location"
-            isClearable
-            isSearchable
-          />
-        </Col>
-        <Col xs="auto">
-          <FloatingLabel label="No of people" className="mb-3">
-            <Form.Control
-              className={`mb-2 ${classes.input}`}
-              id="numOfPeople"
-              name="numOfPeople"
-              type="number"
-              min="1"
-              max="30"
-              value={filters.numOfPeople}
-              onChange={handleInputChange}
-              placeholder="No of people"
-              isInvalid={!!numOfPeopleError}
+        <InputGroup className={classes.group}>
+          <Col xs="auto">
+            <Select
+              // className={`mb-2 ${classes.select}`}
+              id="location"
+              name="location"
+              value={locationOptions.find(
+                (option) => option.value === selectedLocation
+              )}
+              onChange={handleLocationChange}
+              options={locationOptions}
+              placeholder="Select location"
+              isClearable
+              isSearchable
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  border: "none",
+                }),
+              }}
             />
-            <Form.Control.Feedback type="invalid">
-              {numOfPeopleError}
-            </Form.Control.Feedback>
-          </FloatingLabel>
-        </Col>
-        <Col xs="auto">
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="outline-secondary"
-              className={classes.dropdownToggle}
-            >
-              {formattedDateRange}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Calendar
-                onChange={handleCalendarChange}
-                value={dateRange}
-                selectRange={true}
-                id="date"
-                aria-label="Rental Availability"
-                minDate={today}
+          </Col>
+          <Col xs="auto">
+            <FloatingLabel label="No of people" className="mb-3">
+              <Form.Control
+                className={`mb-2 ${classes.input}`}
+                id="numOfPeople"
+                name="numOfPeople"
+                type="number"
+                min="1"
+                max="30"
+                value={filters.numOfPeople}
+                onChange={handleInputChange}
+                placeholder="No of people"
+                isInvalid={!!numOfPeopleError}
               />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-        <Col xs="auto">
-          <Button type="submit" className={classes.button}>
-            Search
-          </Button>
-        </Col>
+              <Form.Control.Feedback type="invalid">
+                {numOfPeopleError}
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Col>
+          <Col xs="auto">
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-secondary"
+                className={classes.dropdownToggle}
+              >
+                {formattedDateRange}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Calendar
+                  onChange={handleCalendarChange}
+                  value={dateRange}
+                  selectRange={true}
+                  id="date"
+                  aria-label="Rental Availability"
+                  minDate={today}
+                />
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col xs="auto">
+              <Button type="submit" className={classes.button}>
+                Search
+              </Button>
+          </Col>
+        </InputGroup>
       </Row>
     </Form>
   );

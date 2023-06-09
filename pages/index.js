@@ -17,12 +17,12 @@ function HomePage(props) {
         house.location.toLowerCase() === filters.location.toLowerCase();
       const isNumOfPeopleMatch =
         filters.numOfPeople === "" ||
-        house.noPeople >= parseInt(filters.numOfPeople);
-      const isDateMatch =
+        parseInt(house.noPeople) >= parseInt(filters.numOfPeople);
+        const isDateMatch =
         dateRange.length === 0 ||
         (house.rentalAvailability.start <= dateRange[0] &&
           house.rentalAvailability.end >= dateRange[1]);
-  
+      
       if (isLocationMatch && isNumOfPeopleMatch || isDateMatch) {
         return true;
       } else {
