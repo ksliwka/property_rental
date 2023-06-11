@@ -4,10 +4,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { Dropdown, InputGroup } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import Calendar from "react-calendar";
-import Select from "react-select";
+import { FormSelect } from "react-bootstrap";
 import classes from "./FilterInput.module.css";
+import { IoIosArrowDown } from "react-icons/io";
 
 function FilterInput({ onSearch, houses }) {
   const [dateRange, setDateRange] = useState([]);
@@ -101,74 +102,71 @@ function FilterInput({ onSearch, houses }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row className="align-items-center justify-content-center">
-        <InputGroup className={classes.group}>
-          <Col xs="auto">
-            <Select
-              // className={`mb-2 ${classes.select}`}
-              id="location"
-              name="location"
-              value={locationOptions.find(
-                (option) => option.value === selectedLocation
-              )}
-              onChange={handleLocationChange}
-              options={locationOptions}
-              placeholder="Select location"
-              isClearable
-              isSearchable
-              styles={{
-                control: (baseStyles, state) => ({
-                  ...baseStyles,
-                  border: "none",
-                }),
-              }}
+      <Row
+        className={`align-items-center justify-content-center ${classes.group}`}
+      >
+        <Col xs="auto">
+          <FormSelect
+            id="location"
+            name="location"
+            value={selectedLocation}
+            onChange={handleLocationChange}
+            placeholder="Select location"
+            className={classes.select}
+          >
+            <option value="">All locations</option>
+            {houses.map((house) => (
+              <option key={house.location} value={house.location}>
+                {house.location}
+              </option>
+            ))}
+          </FormSelect>
+        </Col>
+        <Col xs="auto">
+          <FloatingLabel label="No of people" className="mb-3">
+            <Form.Control
+              className={`mb-2 ${classes.input}`}
+              id="numOfPeople"
+              name="numOfPeople"
+              type="number"
+              min="1"
+              max="30"
+              value={filters.numOfPeople}
+              onChange={handleInputChange}
+              placeholder="No of people"
+              isInvalid={!!numOfPeopleError}
             />
-          </Col>
-          <Col xs="auto">
-            <FloatingLabel label="No of people" className="mb-3">
-              <Form.Control
-                className={`mb-2 ${classes.input}`}
-                id="numOfPeople"
-                name="numOfPeople"
-                type="number"
-                min="1"
-                max="30"
-                value={filters.numOfPeople}
-                onChange={handleInputChange}
-                placeholder="No of people"
-                isInvalid={!!numOfPeopleError}
+            <Form.Control.Feedback type="invalid">
+              {numOfPeopleError}
+            </Form.Control.Feedback>
+          </FloatingLabel>
+        </Col>
+        <Col xs="auto">
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="outline-secondary"
+              className={classes.dropdownToggle}
+            >
+              {formattedDateRange}
+              <IoIosArrowDown className={classes.arrow} />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Calendar
+                onChange={handleCalendarChange}
+                value={dateRange}
+                selectRange={true}
+                id="date"
+                aria-label="Rental Availability"
+                minDate={today}
               />
-              <Form.Control.Feedback type="invalid">
-                {numOfPeopleError}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Col>
-          <Col xs="auto">
-            <Dropdown>
-              <Dropdown.Toggle
-                variant="outline-secondary"
-                className={classes.dropdownToggle}
-              >
-                {formattedDateRange}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Calendar
-                  onChange={handleCalendarChange}
-                  value={dateRange}
-                  selectRange={true}
-                  id="date"
-                  aria-label="Rental Availability"
-                  minDate={today}
-                />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-          <Col xs="auto">
-              <Button type="submit" className={classes.button}>
-                Search
-              </Button>
-          </Col>
-        </InputGroup>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col xs="auto">
+          <Button type="submit" className={classes.button}>
+            Search
+          </Button>
+        </Col>
       </Row>
     </Form>
   );

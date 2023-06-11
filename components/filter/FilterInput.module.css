@@ -1,30 +1,48 @@
+.group {
+  border-bottom: 1px solid black;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: baseline;
+}
 
-
-  .group{
-    border: 1px solid black;
-    width: 80%;
-    border-radius: 2rem;
-    margin-bottom: 20px;
-  }
-
-  .react-select-container{
-    border: none !important; 
-  }
+.select {
+  width: 200px !important;
+  height: 40px !important;
+  border: none;
+}
 
 .input {
   width: 200px;
   height: 40px !important;
   border: none;
+  border-left: 1px solid black;
+  border-radius: 0%;
 }
 
 .dropdownToggle {
-  width: 200px;
+  width: 220px;
   height: 40px !important;
   border: none;
+  border-left: 1px solid black;
+  border-radius: 0%;
+  color: black;
+}
+.dropdownToggle:hover,
+.dropdownToggle:active,
+.dropdownToggle:focus {
+  border: none;
+  background-color: transparent !important;
+  color: black !important;
+  border-left: 1px solid black;
 }
 
+.dropdownToggle::after {
+  display: none;
+}
 
-
+.arrow{
+    margin-left: 8px;
+}
 
 .button {
   color: white;
@@ -38,11 +56,3 @@
   background: rgb(255, 252, 59) !important;
   border: none !important;
 }
-
-
-
-
-
-  
-
-  
