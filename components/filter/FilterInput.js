@@ -125,7 +125,7 @@ function FilterInput({ onSearch, houses }) {
         </Col>
         <Col xs="auto">
             <Form.Control
-              className={` ${classes.input}`}
+              className={classes.select}
               id="numOfPeople"
               name="numOfPeople"
               type="number"
