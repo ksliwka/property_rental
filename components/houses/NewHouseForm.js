@@ -164,7 +164,7 @@ function NewHouseForm(props) {
                     as="textarea"
                     id="description"
                     required
-                    rows="5"
+                    rows="10"
                     ref={descriptionInputRef}
                   ></Form.Control>
                 </Form.Group>

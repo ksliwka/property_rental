@@ -3,12 +3,12 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Dropdown } from "react-bootstrap";
 import Calendar from "react-calendar";
 import { FormSelect } from "react-bootstrap";
 import classes from "./FilterInput.module.css";
 import { IoIosArrowDown } from "react-icons/io";
+import "react-calendar/dist/Calendar.css";
 
 function FilterInput({ onSearch, houses }) {
   const [dateRange, setDateRange] = useState([]);
