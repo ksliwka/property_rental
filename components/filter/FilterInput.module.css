@@ -6,14 +6,16 @@
 }
 
 .select {
-  width: 200px !important;
+  width: 150px !important;
   height: 40px !important;
   border: none;
+  color: black;
 }
 
 .input {
-  width: 200px;
+  width: 150px;
   height: 40px !important;
+  color: black !important;
   border: none;
   border-left: 1px solid black;
   border-radius: 0%;
@@ -40,8 +42,8 @@
   display: none;
 }
 
-.arrow{
-    margin-left: 8px;
+.arrow {
+  margin-left: 8px;
 }
 
 .button {

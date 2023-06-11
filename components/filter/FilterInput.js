@@ -61,12 +61,13 @@ function FilterInput({ onSearch, houses }) {
     }
   };
 
-  const handleLocationChange = (selectedOption) => {
-    const location = selectedOption ? selectedOption.value : "";
+  const handleLocationChange = (event) => {
+    const location = event.target.value;
     setSelectedLocation(location);
-    const event = { target: { name: "location", value: location } };
-    handleInputChange(event);
+    const locationEvent = { target: { name: "location", value: location } };
+    handleInputChange(locationEvent);
   };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -123,9 +124,8 @@ function FilterInput({ onSearch, houses }) {
           </FormSelect>
         </Col>
         <Col xs="auto">
-          <FloatingLabel label="No of people" className="mb-3">
             <Form.Control
-              className={`mb-2 ${classes.input}`}
+              className={` ${classes.input}`}
               id="numOfPeople"
               name="numOfPeople"
               type="number"
@@ -139,7 +139,6 @@ function FilterInput({ onSearch, houses }) {
             <Form.Control.Feedback type="invalid">
               {numOfPeopleError}
             </Form.Control.Feedback>
-          </FloatingLabel>
         </Col>
         <Col xs="auto">
           <Dropdown>
