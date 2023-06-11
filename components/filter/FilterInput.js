@@ -71,11 +71,20 @@ function FilterInput({ onSearch, houses }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+  
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
+  
     console.log(formattedStartDate);
-    onSearch(filters, [formattedStartDate, formattedEndDate]);
+    console.log(formattedEndDate);
+  
+    if (dateRange.length > 0) {
+      onSearch(filters, formattedStartDate, formattedEndDate);
+    } else {
+      onSearch(filters);
+    }
   };
+  
   const formatDate = (date) => {
     if (date instanceof Date && !isNaN(date)) {
       return date.toLocaleDateString(undefined, {

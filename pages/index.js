@@ -6,33 +6,50 @@ import Head from "next/head";
 import Slogan from "../components/layout/Slogan";
 import FilterInput from "../components/filter/FilterInput";
 
-
 function HomePage(props) {
   const [filteredHouses, setFilteredHouses] = useState(props.houses);
 
-  const handleSearch = (filters, dateRange) => {
+  const handleSearch = (filters, formattedStartDate, formattedEndDate) => {
+    console.log("handleSearch function called");
     const filteredData = props.houses.filter((house) => {
+
       const isLocationMatch =
         filters.location === "" ||
         house.location.toLowerCase() === filters.location.toLowerCase();
       const isNumOfPeopleMatch =
         filters.numOfPeople === "" ||
         parseInt(house.noPeople) >= parseInt(filters.numOfPeople);
+        console.log("House rentalAvailability start:", house.rentalAvailability.start);
+        console.log(house.rentalAvailability.start)
         const isDateMatch =
-        dateRange.length === 0 ||
-        (house.rentalAvailability.start <= dateRange[0] &&
-          house.rentalAvailability.end >= dateRange[1]);
+        formattedStartDate === undefined ||
+        formattedEndDate === undefined ||
+        (house.rentalAvailability.start <= formattedStartDate &&
+          house.rentalAvailability.end >= formattedEndDate);
+          console.log('formatted start dates')
+          console.log(formattedStartDate)
       
-      if (isLocationMatch && isNumOfPeopleMatch || isDateMatch) {
+            console.log(
+              "House:",
+              house.title,
+              "Location Match:",
+              isLocationMatch,
+              "Num of People Match:",
+              isNumOfPeopleMatch,
+              "Date Match:",
+              isDateMatch
+            );
+        
+
+      if (isLocationMatch && isNumOfPeopleMatch && isDateMatch) {
         return true;
       } else {
         return false;
       }
     });
-  
+
     setFilteredHouses(filteredData);
   };
-  
 
   return (
     <Fragment>
@@ -42,7 +59,7 @@ function HomePage(props) {
       </Head>
       <Container>
         <Slogan />
-        <FilterInput onSearch={handleSearch} houses={props.houses}/>
+        <FilterInput onSearch={handleSearch} houses={props.houses} />
         <HouseList houses={filteredHouses} />
       </Container>
     </Fragment>
