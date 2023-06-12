@@ -33,7 +33,7 @@ export async function getStaticPaths() {
   client.close();
 
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: houses.map((house) => ({
       params: { houseId: house._id.toString() },
     })),
