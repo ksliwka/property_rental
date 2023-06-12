@@ -61,120 +61,127 @@ function NewHouseForm(props) {
 
   return (
     <Container>
-      <Row>
-        <Col md={5}></Col>
-        <Col md={7}>
-          <Form className={classes.form} onSubmit={submitHandler}>
-            <Row>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="title">Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    required
-                    id="title"
-                    ref={titleInputRef}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="location">Location</Form.Label>
-                  <Form.Control
-                    type="text"
-                    required
-                    id="location"
-                    ref={locationInputRef}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="title">No of people</Form.Label>
-                  <Form.Control
-                    type="text"
-                    required
-                    id="title"
-                    ref={noPeopleRef}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="price">Price</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text>$</InputGroup.Text>
+      <Row className={classes.container}>
+        <Col lg={6} className={`d-lg-block d-none ${classes.sloganContainer}`}>
+          <h1 className={classes.slogan}>
+            Unlock the Power of Sharing:{" "}
+            <p className={classes.sloganSpan}>Earn Money, Connect, and Embrace New Connections!</p>
+          </h1>
+        </Col>
+        <Col lg={6} className={classes.formContainer}>
+          <Row className={classes.formRow}>
+            <Form className={classes.form} onSubmit={submitHandler}>
+              <Row>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="title">Title</Form.Label>
                     <Form.Control
                       type="text"
                       required
-                      id="price"
-                      ref={priceRef}
-                      pattern="[0-9]*"
+                      id="title"
+                      ref={titleInputRef}
                     />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Form.Group>
-              <Form.Label htmlFor="image">Image</Form.Label>
-              <Form.Control
-                type="url"
-                required
-                id="image"
-                ref={imageInputRef}
-              />
-            </Form.Group>
-            <Row>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="rentalAvailability">
-                    Select Dates
-                  </Form.Label>
-                  <Calendar
-                    onChange={handleCalendarChange}
-                    value={dateRange}
-                    selectRange={true}
-                    id="rentalAvailability"
-                    aria-label="Rental Availability"
-                    minDate={today}
-                  />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="location">Location</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      id="location"
+                      ref={locationInputRef}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="title">No of people</Form.Label>
+                    <Form.Control
+                      type="text"
+                      required
+                      id="title"
+                      ref={noPeopleRef}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="price">Price</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>$</InputGroup.Text>
+                      <Form.Control
+                        type="text"
+                        required
+                        id="price"
+                        ref={priceRef}
+                        pattern="[0-9]*"
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Form.Group>
+                <Form.Label htmlFor="image">Image</Form.Label>
+                <Form.Control
+                  type="url"
+                  required
+                  id="image"
+                  ref={imageInputRef}
+                />
+              </Form.Group>
+              <Row>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="rentalAvailability">
+                      Select Dates
+                    </Form.Label>
+                    <Calendar
+                      onChange={handleCalendarChange}
+                      value={dateRange}
+                      selectRange={true}
+                      id="rentalAvailability"
+                      aria-label="Rental Availability"
+                      minDate={today}
+                    />
 
-                  {dateRange.length > 0 ? (
-                    <p className="text-center">
-                      <span className="bold">Start:</span>{" "}
-                      {formatDate(dateRange[0])}
-                      &nbsp;|&nbsp;
-                      <span className="bold">End:</span>{" "}
-                      {formatDate(dateRange[1])}
-                    </p>
-                  ) : (
-                    <p className="text-center">
-                      <span className="bold">Default selected date:</span>{" "}
-                      {formatDate(dateRange[0])}
-                    </p>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group>
-                  <Form.Label htmlFor="description">Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    id="description"
-                    required
-                    rows="10"
-                    ref={descriptionInputRef}
-                  ></Form.Control>
-                </Form.Group>
-              </Col>
-            </Row>
+                    {dateRange.length > 0 ? (
+                      <p className="text-center">
+                        <span className="bold">Start:</span>{" "}
+                        {formatDate(dateRange[0])}
+                        &nbsp;|&nbsp;
+                        <span className="bold">End:</span>{" "}
+                        {formatDate(dateRange[1])}
+                      </p>
+                    ) : (
+                      <p className="text-center">
+                        <span className="bold">Default selected date:</span>{" "}
+                        {formatDate(dateRange[0])}
+                      </p>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label htmlFor="description">Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      id="description"
+                      required
+                      rows="10"
+                      ref={descriptionInputRef}
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
 
-            <div className={classes.formButton}>
-              <Button type="submit">Add</Button>
-            </div>
-          </Form>
+              <div className={classes.formButton}>
+                <Button type="submit">Add</Button>
+              </div>
+            </Form>
+          </Row>
         </Col>
       </Row>
     </Container>

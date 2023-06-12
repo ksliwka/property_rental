@@ -50,5 +50,43 @@
   color: black;
 }
 
+.slogan{
+  font-weight: 600;
+  margin: 0 40px;
+  letter-spacing: 5px;
+}
+
+.sloganSpan{
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.container {
+  align-items: center;
+  min-height: 80vh;
+}
+
+.sloganContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 100px;
+  padding: 50px 0;
+}
+
+.formContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formRow {
+  width: 100%;
+}
+
+
+
 
  
