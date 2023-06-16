@@ -8,30 +8,20 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
-    "@mapbox/mapbox-sdk": "^0.15.1",
-    "@types/mapbox-gl": "^2.7.11",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.5",
-    "deck.gl": "^8.9.15",
-    "dotenv": "^16.0.3",
-    "env-cmd": "^10.1.0",
-    "mapbox-geocoding": "^0.1.5",
     "mapbox-gl": "^2.14.1",
     "mongodb": "^5.4.0",
     "next": "13.4.1",
-    "next-runtime-dotenv": "^1.5.1",
     "node-fetch": "^3.3.1",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-calendar": "^4.2.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
-    "react-map-gl": "^7.0.23",
-    "react-map-gl-geocoder": "^2.2.0",
     "react-router": "^6.11.1",
-    "react-router-dom": "^6.11.1",
-    "react-select": "^5.7.3",
-    "react-ssr-prepass": "^1.5.0"
+    "react-router-dom": "^6.11.1"
+  },
+  "devDependencies": {
+    "depcheck": "^1.4.3"
   }
 }
