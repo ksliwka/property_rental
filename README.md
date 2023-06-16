@@ -63,11 +63,11 @@ Make sure you have the following installed:
 1. Clone the repository.
 2. Install the project dependencies by running the following command:
 
-npm install
+`npm install`
 
 3. Start the development server using the following command:
 
-npm run dev
+`npm run dev`
 
 4. Access the website through your preferred web browser.
 
