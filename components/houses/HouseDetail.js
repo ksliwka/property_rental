@@ -1,16 +1,26 @@
 import { Fragment } from "react";
 import classes from "./HouseDetail.module.css";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Modal } from "react-bootstrap";
 import { GoLocation } from "react-icons/go";
 import CartContext from "../store/cart-context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Heart from "../assets/Heart";
 
 function HouseDetail(props) {
   const cartCtx = useContext(CartContext);
+  const [showModal, setShowModal] = useState(false);
 
   const addItemToCartHandler = (event) => {
     event.preventDefault();
+
+    const existingCartItem = cartCtx.items.find(
+      (item) => item.id === props.id
+    );
+
+    if (existingCartItem) {
+      setShowModal(true);
+      return;
+    }
 
     cartCtx.addItem({
       id: props.id,
@@ -24,6 +34,10 @@ function HouseDetail(props) {
   function showDetailsHandler() {
     router.push("/" + props.id);
   }
+  const closeModalHandler = () => {
+    setShowModal(false);
+  };
+
 
   return (
     <Fragment>
@@ -52,6 +66,19 @@ function HouseDetail(props) {
           </Row>
         </form>
       </Container>
+      <Modal show={showModal} onHide={closeModalHandler}>
+        <Modal.Header closeButton>
+          <Modal.Title>Product Already in Cart</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>This item has already been added to your favorites.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModalHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Fragment>
   );
 }
