@@ -13,12 +13,12 @@ const CartItems = ({ items, hideModal }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const showDetailsHandler = async (itemId) => {
-    setIsLoading(true); 
+    setIsLoading(true);
 
     await router.push("/" + itemId);
 
-    setIsLoading(false); 
-    hideModal(); 
+    setIsLoading(false);
+    hideModal();
   };
   const removeItemHandler = (itemId) => {
     cartCtx.removeItem(itemId);
@@ -27,7 +27,12 @@ const CartItems = ({ items, hideModal }) => {
   return (
     <>
       {isLoading ? (
-        <p className="d-flex align-items-center justify-content-center" style={{ minHeight: "100px" }}>Loading...</p>
+        <p
+          className="d-flex align-items-center justify-content-center"
+          style={{ minHeight: "100px" }}
+        >
+          Loading...
+        </p>
       ) : (
         <ul>
           {items.map((item) => (
@@ -46,15 +51,16 @@ const CartItems = ({ items, hideModal }) => {
                   <p className="text-muted">{item.location}</p>
                 </Col>
                 <Col className="d-flex align-items-end justify-content-end">
+                  <Button
+                    className={classes.remove}
+                    variant="danger"
+                    onClick={() => removeItemHandler(item.id)}
+                  >
+                    Remove
+                  </Button>
                   <a onClick={() => showDetailsHandler(item.id)}>
                     <BsFillArrowDownRightCircleFill className={classes.arrow} />
                   </a>
-                  <Button
-                  variant="danger"
-                  onClick={() => removeItemHandler(item.id)}
-                >
-                    Remove
-                  </Button>
                 </Col>
               </Row>
             </Card>

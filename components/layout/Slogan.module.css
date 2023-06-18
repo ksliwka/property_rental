@@ -7,3 +7,9 @@
     text-align: center;
     font-weight: 600;
 }
+
+@media (max-width: 576px) {
+    .slogan{
+        display: none;
+    }
+  }
