@@ -1,8 +1,10 @@
+// HouseItem.js
 import { useRouter } from "next/router";
 import { Fragment, useContext, useState } from "react";
 import classes from "./HouseItem.module.css";
 import Card from "react-bootstrap/Card";
-import { Col, Button, Modal } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
+import CustomModal from "../modal/CustomModal";
 
 import Heart from "../assets/Heart";
 import CartContext from "../store/cart-context";
@@ -37,9 +39,11 @@ function HouseItem(props) {
   function showDetailsHandler() {
     router.push("/" + props.id);
   }
+
   const closeModalHandler = () => {
     setShowModal(false);
   };
+
 
   return (
     <Fragment>
@@ -72,23 +76,16 @@ function HouseItem(props) {
           </form>
         </Card>
       </Col>
-      <Modal show={showModal} onHide={closeModalHandler}>
-        <Modal.Header closeButton>
-          <Modal.Title>Product Already in Cart</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>This item has already been added to your favorites.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModalHandler}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <CustomModal
+        show={showModal}
+        onHide={closeModalHandler}
+        title="Product Already in Cart"
+        body={<p>This item has already been added to your favorites.</p>}
+        closeButtonLabel="Close"
+      />
+
     </Fragment>
   );
 }
 
 export default HouseItem;
-
-//przy button mogę zmienić na Link od next.js to jest lepesze rozwiązanie
