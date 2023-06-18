@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import classes from "./HouseItem.module.css";
 import Card from "react-bootstrap/Card";
-import { Col, Button, Row } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 
 import Heart from "../assets/Heart";
 import CartContext from "../store/cart-context";

@@ -1,0 +1,12 @@
+.heart_btn {
+    background-color: rgb(205, 205, 205, 0.4);
+    border: none;
+    top: 0;
+    right: 0;
+  }
+  .heart_btn:hover,
+  .heart_btn:focus,
+  .heart_btn:active {
+    background-color: rgb(205, 205, 205, 0.6) !important;
+  }
+  
