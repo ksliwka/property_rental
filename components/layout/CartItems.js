@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsFillArrowDownRightCircleFill } from "react-icons/bs";
+import CartContext from "../store/cart-context";
 
 import classes from "./CartItems.module.css";
 
 const CartItems = ({ items, hideModal }) => {
   const router = useRouter();
+  const cartCtx = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const showDetailsHandler = async (itemId) => {
@@ -17,6 +19,9 @@ const CartItems = ({ items, hideModal }) => {
 
     setIsLoading(false); 
     hideModal(); 
+  };
+  const removeItemHandler = (itemId) => {
+    cartCtx.removeItem(itemId);
   };
 
   return (
@@ -44,6 +49,12 @@ const CartItems = ({ items, hideModal }) => {
                   <a onClick={() => showDetailsHandler(item.id)}>
                     <BsFillArrowDownRightCircleFill className={classes.arrow} />
                   </a>
+                  <Button
+                  variant="danger"
+                  onClick={() => removeItemHandler(item.id)}
+                >
+                    Remove
+                  </Button>
                 </Col>
               </Row>
             </Card>

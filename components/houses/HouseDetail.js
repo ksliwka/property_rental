@@ -30,9 +30,7 @@ function HouseDetail(props) {
     });
   };
 
-  function showDetailsHandler() {
-    router.push("/" + props.id);
-  }
+
 
   const closeModalHandler = () => {
     setShowModal(false);

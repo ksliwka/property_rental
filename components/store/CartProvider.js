@@ -8,7 +8,9 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    const existingCartItem = state.items.find((item) => item.id === action.item.id);
+    const existingCartItem = state.items.find(
+      (item) => item.id === action.item.id
+    );
 
     if (existingCartItem) {
       // Item already exists in the cart, do not add it again
@@ -29,15 +31,17 @@ const cartReducer = (state, action) => {
       (item) => item.id === action.id
     );
     const existingItem = state.items[existingCartItemIndex];
-    const updatedTotalAmount = state.totalAmount - existingItem.price;
-    let updatedItems;
-    if (existingItem.amount === 1) {
+  
+    let updatedItems, updatedTotalAmount;
+    if (existingItem) {
       updatedItems = state.items.filter((item) => item.id !== action.id);
+      updatedTotalAmount = state.totalAmount - existingItem.price;
     } else {
-      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
-      updatedItems = [...state.items];
-      updatedItems[existingCartItemIndex] = updatedItem;
+      // Item does not exist, no changes required
+      updatedItems = state.items;
+      updatedTotalAmount = state.totalAmount;
     }
+  
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -60,8 +64,7 @@ const CartProvider = (props) => {
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: "ADD", item: item });
   };
-
-  const removeItemFromCartHnadler = (id) => {
+  const removeItemFromCartHandler = (id) => {
     dispatchCartAction({ type: "REMOVE", id: id });
   };
 
@@ -73,7 +76,7 @@ const CartProvider = (props) => {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
-    removeItem: removeItemFromCartHnadler,
+    removeItem: removeItemFromCartHandler,
     clearCart: clearCartHandler,
   };
 
