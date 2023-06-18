@@ -1,14 +1,6 @@
-import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import { Dropdown } from "react-bootstrap";
-import Calendar from "react-calendar";
-import { FormSelect } from "react-bootstrap";
-import classes from "./FilterInput.module.css";
-import { IoIosArrowDown } from "react-icons/io";
+import React, { useState, useEffect } from "react";
 import "react-calendar/dist/Calendar.css";
+import FilterForm from "./FilterForm";
 
 function FilterInput({ onSearch, houses }) {
   const [dateRange, setDateRange] = useState([]);
@@ -67,24 +59,21 @@ function FilterInput({ onSearch, houses }) {
     const locationEvent = { target: { name: "location", value: location } };
     handleInputChange(locationEvent);
   };
-  
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const formattedStartDate = formatDate(dateRange[0]);
     const formattedEndDate = formatDate(dateRange[1]);
-  
-    console.log(formattedStartDate);
-    console.log(formattedEndDate);
-  
+
     if (dateRange.length > 0) {
       onSearch(filters, formattedStartDate, formattedEndDate);
     } else {
       onSearch(filters);
     }
+
   };
-  
+
   const formatDate = (date) => {
     if (date instanceof Date && !isNaN(date)) {
       return date.toLocaleDateString(undefined, {
@@ -100,83 +89,24 @@ function FilterInput({ onSearch, houses }) {
     setDateRange(value);
   };
 
-  const locationOptions = [
-    { value: "", label: "All locations" },
-    ...houses.map((house) => ({
-      value: house.location,
-      label: house.location,
-    })),
-  ];
-
   const today = new Date();
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row
-        className={`align-items-center justify-content-center ${classes.group}`}
-      >
-        <Col xs="auto">
-          <FormSelect
-            id="location"
-            name="location"
-            value={selectedLocation}
-            onChange={handleLocationChange}
-            placeholder="Select location"
-            className={classes.select}
-          >
-            <option value="">All locations</option>
-            {houses.map((house) => (
-              <option key={house.location} value={house.location}>
-                {house.location}
-              </option>
-            ))}
-          </FormSelect>
-        </Col>
-        <Col xs="auto">
-            <Form.Control
-              className={classes.select}
-              id="numOfPeople"
-              name="numOfPeople"
-              type="number"
-              min="1"
-              max="30"
-              value={filters.numOfPeople}
-              onChange={handleInputChange}
-              placeholder="No of people"
-              isInvalid={!!numOfPeopleError}
-            />
-            <Form.Control.Feedback type="invalid">
-              {numOfPeopleError}
-            </Form.Control.Feedback>
-        </Col>
-        <Col xs="auto">
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="outline-secondary"
-              className={classes.dropdownToggle}
-            >
-              {formattedDateRange}
-              <IoIosArrowDown className={classes.arrow} />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Calendar
-                onChange={handleCalendarChange}
-                value={dateRange}
-                selectRange={true}
-                id="date"
-                aria-label="Rental Availability"
-                minDate={today}
-              />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-        <Col xs="auto">
-          <Button type="submit" className={classes.button}>
-            Search
-          </Button>
-        </Col>
-      </Row>
-    </Form>
+    <>
+      <FilterForm
+        selectedLocation={selectedLocation}
+        handleLocationChange={handleLocationChange}
+        filters={filters}
+        handleInputChange={handleInputChange}
+        dateRange={dateRange}
+        handleCalendarChange={handleCalendarChange}
+        formattedDateRange={formattedDateRange}
+        numOfPeopleError={numOfPeopleError}
+        handleSubmit={handleSubmit}
+        houses={houses}
+        today={today}
+      />
+    </>
   );
 }
 

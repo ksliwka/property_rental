@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsFillArrowDownRightCircleFill } from "react-icons/bs";
+import { MdClose } from "react-icons/md";
 import CartContext from "../store/cart-context";
 
 import classes from "./CartItems.module.css";
@@ -51,12 +52,8 @@ const CartItems = ({ items, hideModal }) => {
                   <p className="text-muted">{item.location}</p>
                 </Col>
                 <Col className="d-flex align-items-end justify-content-end">
-                  <Button
-                    className={classes.remove}
-                    variant="danger"
-                    onClick={() => removeItemHandler(item.id)}
-                  >
-                    Remove
+                  <Button onClick={() => removeItemHandler(item.id)} className={classes.remove}>
+                    <MdClose className={classes.removeBtn}/>
                   </Button>
                   <a onClick={() => showDetailsHandler(item.id)}>
                     <BsFillArrowDownRightCircleFill className={classes.arrow} />

@@ -4,43 +4,45 @@
 }
 
 .arrow {
-    height: 2rem;
-    width: 2rem;
-    color: black;
+  height: 2rem;
+  width: 2rem;
+  color: black;
 }
 .arrow:hover {
-    height: 2rem;
-    width: 2rem;
-    color: rgb(255, 252, 59);
+  height: 2rem;
+  width: 2rem;
+  color: rgb(85, 85, 85);
 }
 
 .remove {
-  text-decoration: none;
-  /* position: absolute;
+  position: absolute;
   top: 10px;
-  right: 0; */
+  right: 0;
   color: black;
   cursor: pointer;
   padding: 0.5rem 1.2rem;
-  background-color: rgb(255, 252, 59);
-  border: 1px solid rgb(255, 252, 59);
-  border-radius: 1rem;
-  font-weight: 500;
-  font-size: 1rem;
-  margin-right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.removeBtn {
+  color: rgb(139, 139, 139);
+  width: 20px;
+  height: auto;
 }
 
 .remove:hover,
 .remove:focus,
 .remove:active {
-  text-decoration: none;
-  color: black !important;
-  background-color: rgb(242, 239, 185) !important;
-  border: 1px solid rgb(242, 239, 185) !important;
-  border-radius: 1rem;
-  font-weight: 500;
-  font-size: 1rem;
+  background-color: transparent;
+  border: none;
 }
+.removeBtn:hover,
+.removeBtn:focus,
+.removeBtn:active {
+  color: rgb(85, 85, 85);
+}
+
 
 
 @media (max-width: 576px) {
