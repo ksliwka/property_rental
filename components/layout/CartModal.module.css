@@ -1,0 +1,12 @@
+.clear {
+    color: white;
+    background: black;
+    border: none;
+  }
+  .clear:hover,
+  .clear:active,
+  .clear:focus {
+    color: black !important;
+    background: rgb(255, 252, 59) !important;
+    border: none !important;
+  }

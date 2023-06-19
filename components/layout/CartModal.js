@@ -3,7 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import CartItems from "./CartItems";
 import CartContext from "../store/cart-context";
 import Heart from "../assets/Heart";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import classes from './CartModal.module.css'
 
 const CartModal = () => {
   const fullscreenOption = true; // Set the desired fullscreen option here
@@ -22,6 +23,10 @@ const CartModal = () => {
     setShow(false);
   };
 
+  const clearCartHandler = () => {
+    cartCtx.clearCart();
+  };
+
   return (
     <>
       <a type="btn" onClick={handleShow} className={`me-2 mb-2 `}>
@@ -35,6 +40,7 @@ const CartModal = () => {
           <Modal.Body>
             Number of wishlist items: {numberOfCartItems}
             <CartItems items={cartCtx.items} hideModal={hideModal} />
+            <Button onClick={clearCartHandler} className={classes.clear}>Clear</Button>
           </Modal.Body>
         </Container>
       </Modal>
